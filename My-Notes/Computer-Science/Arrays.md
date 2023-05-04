@@ -60,7 +60,7 @@ There are 2 types of Arrays
 1. **One-dimensional**: These Arrays have a single dimension
 ```int arr[] {0, 1, 2};```
 2. **Muli-dimensional**: These Arrays have multiple dimensions
-```int arr[][2] {{0, 1},{2, 4}};```
+```int arr[2][2] {{0, 1},{2, 4}};```
 
 Note Multi-dimensional Arrays have a different Time Complexity depending on the number of dimensions
 # Arrays Pros and Cons
