@@ -1,0 +1,16 @@
+body {
+  min-height: 100vh;
+}
+
+#navbar {
+  background-color: #1B1A1A;
+}
+
+.nav-item:hover{
+  background-color: #232121;
+}
+
+.left {
+  float: left;
+}
+
