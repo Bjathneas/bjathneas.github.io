@@ -58,7 +58,7 @@ Searching an Array has a **Time Complexity of *O(N)***
 # Types of Arrays
 There are 2 types of Arrays
 1. **One-dimensional**: These Arrays have a single dimension
-`int arr[] {0, 1, 2};```
+`int arr[] {0, 1, 2};`
 2. **Muli-dimensional**: These Arrays have multiple dimensions
 `int arr[][] {{0, 1},{2, 4}};`
 
