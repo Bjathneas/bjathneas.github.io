@@ -16,13 +16,13 @@ Arrays are a type of data structure that stores data of the same type in [contig
 # Array Initialization
 By default the array is not initialized, initializing an array can be done in the following ways:
 1. **Passing no value within initializer**: You can initialize the array without passing values.
-	`int arr[10] = {};`
+	```int arr[10] = {};```
 2. **By passing specific values within initializer**: You can initialize the array with values as long as the number of values are less than or equal to the array size
-	`int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};`
+	```int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};```
 3. **By passing specific values without declaring the size**: You can initialize and array like #2 but without declaring the array size as it will be calculated at compile time!
-	`int arr[] = {0, 1, 2, 3};`
+	```int arr[] = {0, 1, 2, 3};```
 4. **Universal Initialization**: You can even omit the **=** sign
-	`int arr[] {0, 1, 2, 3};`
+	```int arr[] {0, 1, 2, 3};```
 # Array Operations
 ## Accessing
 To access an element in an Array, pass the index of the element to the Array
@@ -58,9 +58,9 @@ Searching an Array has a **Time Complexity of *O(N)***
 # Types of Arrays
 There are 2 types of Arrays
 1. **One-dimensional**: These Arrays have a single dimension
-`int arr[] {0, 1, 2};`
+```int arr[] {0, 1, 2};```
 2. **Muli-dimensional**: These Arrays have multiple dimensions
-`int arr[][2] {{0, 1},{2, 4}};`
+```int arr[][2] {{0, 1},{2, 4}};```
 
 Note Multi-dimensional Arrays have a different Time Complexity depending on the number of dimensions
 # Arrays Pros and Cons
