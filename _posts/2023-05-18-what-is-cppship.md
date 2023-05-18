@@ -6,7 +6,7 @@ sidebar:
 header:
   teaser: /assets/images/Cppship.png
 author_profile: false
-catagories: tools
+categories: tools
 tags: c++ cargo
 ---
 

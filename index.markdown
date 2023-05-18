@@ -62,6 +62,17 @@ header:
   {% endfor %}
 </div>
 
+## Projects
+<div class="teaser-container">
+  {% assign filteredPosts = site.posts | where: "categories", "projects" %}
+  {% for post in filteredPosts limit:25 %}
+    <a href="{{ post.url }}" class="teaser-item">
+      <img src="{{ post.header.teaser }}" alt="{{ post.title }}">
+      <h2>{{ post.title }}</h2>
+    </a>
+  {% endfor %}
+</div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const teaserContainer = document.querySelector('.teaser-container');

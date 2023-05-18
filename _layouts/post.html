@@ -1,0 +1,14 @@
+---
+layout: single
+---
+<main>
+    {{ content }}
+</main>
+{% if page.tags %}
+  <div class="entry-tags">
+    <span class="entry-tags-label">{{ site.data.ui-text[site.locale].tags_label | default: "Tags" }}:</span>
+    {% for tag in page.tags %}
+      <span class="entry-tags-item">| {{ tag }} </span>
+    {% endfor %}
+  </div>
+{% endif %}
