@@ -1,0 +1,16 @@
+main:
+  - title: "About"
+    url: /about
+what_is_cppship:
+  - title: Getting Started
+    children:
+      - title: "Introduction"
+        url: /2023/05/18/what-is-cppship.html#introduction
+      - title: "Cppship"
+        url: /2023/05/18/what-is-cppship.html#cppship
+      - title: "Why use Cppship"
+        url: /2023/05/18/what-is-cppship.html#why-use-cppship
+      - title: "So why do I use Cppship"
+        url: /2023/05/18/what-is-cppship.html#so-why-do-i-use-cppship
+      - title: "Conclusion"
+        url: /2023/05/18/what-is-cppship.html#conclusion
