@@ -28,11 +28,10 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
-theme: minimal-mistakes-jekyll
 plugins:
   - jekyll-feed
   - jekyll-remote-theme
-remote_theme: benbalter/retlab
+remote_theme: mmistakes/minimal-mistakes
 # minimal settings
 minimal_mistakes_skin: "dark"
 logo: "/assets/images/pfp.png"
