@@ -1,4 +1,5 @@
 ---
+title:  "About"
 type: single
 permalink: /about/
 ---
