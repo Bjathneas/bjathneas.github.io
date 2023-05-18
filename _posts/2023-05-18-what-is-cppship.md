@@ -1,11 +1,13 @@
 ---
-layout: single
 title:  "What is Cppship, and why do I use it?"
 date:   2023-05-18 00:45:00 -0500
 sidebar:
   nav: "what_is_cppship"
 header:
   teaser: /assets/images/Cppship.png
+author_profile: false
+catagories: tools
+tags: c++ cargo
 ---
 
 ## Introduction

@@ -1,10 +1,11 @@
 ---
-layout: single
 title:  "Check out EnCore"
 date:   2023-05-18 00:41:00 -0500
 author_profile: true
 header:
   teaser: /assets/images/EnCore.png
+catagories: projects
+tags: c++ ecs
 ---
 [EnCore](https://github.com/Bjathneas/EnCore) is an ECS(Entity-Component-System) library that is simple and lightweight
 
