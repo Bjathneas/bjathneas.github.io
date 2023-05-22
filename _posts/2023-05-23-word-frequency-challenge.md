@@ -4,7 +4,7 @@ date:   2023-05-22 00:03:00 -0500
 header:
   teaser: /assets/images/WFC.png
 author_profile: true
-categories: challenges
+categories: challenges projects
 tags: c++
 ---
 # Introduction
