@@ -1,0 +1,540 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>What is Cppship, and why do I use it? - Benajah’s Online Portfolio</title>
+<meta name="description" content="Introduction As a computer programmer, I like to spend most of my time writing and developing code. The big issue I run into with C++ though, is having to spend lots of time learning how to use cmake and properly utilize its syntax. Until one day I came across Cppship while scrolling through GitHub. After a quick read of its  documentation, I installed it and have been using it for my C++ projects ever since.">
+
+
+  <meta name="author" content="Benajah">
+  
+  <meta property="article:author" content="Benajah">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Benajah's Online Portfolio">
+<meta property="og:title" content="What is Cppship, and why do I use it?">
+<meta property="og:url" content="http://localhost:4000/tools/2023/05/18/what-is-cppship.html">
+
+
+  <meta property="og:description" content="Introduction As a computer programmer, I like to spend most of my time writing and developing code. The big issue I run into with C++ though, is having to spend lots of time learning how to use cmake and properly utilize its syntax. Until one day I came across Cppship while scrolling through GitHub. After a quick read of its  documentation, I installed it and have been using it for my C++ projects ever since.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/Cppship.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-05-18T00:45:00-05:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/tools/2023/05/18/what-is-cppship.html">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Benajah's Online Portfolio Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--post wide">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/pfp.png" alt="Benajah's Online Portfolio"></a>
+        
+        <a class="site-title" href="/">
+          Benajah's Online Portfolio
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Getting Started</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="/2023/05/18/what-is-cppship.html#introduction">Introduction</a></li>
+          
+            <li><a href="/2023/05/18/what-is-cppship.html#cppship">Cppship</a></li>
+          
+            <li><a href="/2023/05/18/what-is-cppship.html#why-use-cppship">Why use Cppship</a></li>
+          
+            <li><a href="/2023/05/18/what-is-cppship.html#so-why-do-i-use-cppship">So why do I use Cppship</a></li>
+          
+            <li><a href="/2023/05/18/what-is-cppship.html#conclusion">Conclusion</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="What is Cppship, and why do I use it?">
+    <meta itemprop="description" content="IntroductionAs a computer programmer, I like to spend most of my time writing and developing code. The big issue I run into with C++ though, is having to spend lots of time learning howto use cmake and properly utilize its syntax. Until one day I came across Cppship while scrolling through GitHub. After a quick read of its documentation, I installed it and have been using it for my C++ projects ever since.">
+    <meta itemprop="datePublished" content="2023-05-18T00:45:00-05:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/tools/2023/05/18/what-is-cppship.html" class="u-url" itemprop="url">What is Cppship, and why do I use it?
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <main>
+    <h2 id="introduction">Introduction</h2>
+<p>As a computer programmer, I like to spend most of my time writing and developing code. The big issue I run into with C++ though, is having to spend lots of time learning how
+to use cmake and properly utilize its syntax. Until one day I came across <a href="https://github.com/qqiangwu/cppship">Cppship</a> while scrolling through GitHub. After a quick read of its 
+documentation, I installed it and have been using it for my C++ projects ever since.</p>
+
+<h2 id="cppship">Cppship</h2>
+<p>According to <a href="https://github.com/qqiangwu">qqiangwu</a>, the creator of cppship, cppship is a “Cargo-like build tool for modern cpp”. If you aren’t familiar with Cargo, 
+it’s a package manager that comes with the Rust programming language. Cargo manages your packages and builds your code. Just like Cargo, Cppship manages your packages and builds your C++ code.
+This allows developers to spend less time configuring their compiler and packages, and spend that time developing their projects.</p>
+
+<p>Currently, Cppship is supported on Linux and MacOS, and Windows support is still being implemented</p>
+
+<h2 id="why-use-cppship">Why use Cppship</h2>
+<p>While I could give you reasons for why you should use it in my own words, I think reading the PR itself does a better job <a href="https://github.com/qqiangwu/cppship">here</a>.</p>
+
+<h2 id="so-why-do-i-use-cppship">So why do I use Cppship</h2>
+<p>Even though Cppship isn’t widely used yet, I still find having a Cargo-like build tool for C++ useful. I also enjoy how Cppship allows for easily including other cppship projects 
+through the use of GitHub. With Cppship, all you have to do is upload your cppship project to a PR, then when you wish to include it in another project you can include that 
+PR in your cppship.toml file.</p>
+
+<p>Example:</p>
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[package]</span>
+<span class="py">name</span> <span class="p">=</span> <span class="s">"test"</span>
+<span class="py">version</span> <span class="p">=</span> <span class="s">"0.0.1"</span>
+<span class="py">authors</span> <span class="p">=</span> <span class="p">[]</span>
+<span class="py">std</span> <span class="p">=</span> <span class="mi">17</span>
+<span class="nn">[depencies]</span>
+<span class="c">#include apexcore(a cppship project) through its PR</span>
+<span class="nn">apexcore</span> <span class="o">=</span> <span class="p">{</span><span class="py">git</span> <span class="p">=</span> <span class="s">"https://github.com/Bjathneas/ApexCore.git"</span><span class="p">,</span> <span class="py">commit</span> <span class="p">=</span> <span class="s">"8732e53"</span><span class="p">}</span>
+</code></pre></div></div>
+<h1 id="conclusion">Conclusion</h1>
+<p>Cppship is Cargo but for C++, and allows a C++ dev to easily create a new project, build, run, test, bench, format, and lint it. I use Cppship its simple, easy to use, and
+allows me to spend more time writing my C++ projects, instead of slamming my head into my desk because Cmake chose not to like me.</p>
+
+</main>
+
+  <div class="entry-tags">
+    <span class="entry-tags-label">Tags:</span>
+    
+      <span class="entry-tags-item">| c++ </span>
+    
+      <span class="entry-tags-item">| cargo </span>
+    
+  </div>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2023-05-18T00:45:00-05:00">May 18, 2023</time></p>
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/projects/2023/05/18/check-out-encore.html" class="pagination--pager" title="Check out EnCore
+">Previous</a>
+    
+    
+      <a href="/cybersecurity/2023/05/18/an-intro-to-cybersecurity.html" class="pagination--pager" title="An Intro to Cybersecurtiy
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You May Also Enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/GUI_CPP.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/tools/2023/06/14/building-gui-with-cpp.html" rel="permalink">Building GUI with C++
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Introduction
+When I got my first tech gig working as an IT Specialist for a small business,
+I needed to create a way for me to save my hours worked when I wa...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/XSS.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/06/07/xss.html" rel="permalink">What is Cross Site Scripting(XSS)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          less than 1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/cybersecurity.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/cybersecurity/2023/05/18/an-intro-to-cybersecurity.html" rel="permalink">An Intro to Cybersecurtiy
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">What is Cybersecurity
+When people think of cybersecurity, they think of defending against a hacker who utilizes the internet to break into systems. This is j...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/EnCore.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/projects/2023/05/18/check-out-encore.html" rel="permalink">Check out EnCore
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">EnCore is an ECS(Entity-Component-System) library that is simple and lightweight
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Benajah's Online Portfolio. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
