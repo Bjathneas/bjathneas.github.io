@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-06-14T22:15:06-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Benajah’s Online Portfolio</title><subtitle>Benajah&apos;s Online Portfolio for projects and more</subtitle><author><name>Benajah</name></author><entry><title type="html">Building GUI with C++</title><link href="http://localhost:4000/tools/2023/06/14/building-gui-with-cpp.html" rel="alternate" type="text/html" title="Building GUI with C++" /><published>2023-06-14T21:46:52-05:00</published><updated>2023-06-14T21:46:52-05:00</updated><id>http://localhost:4000/tools/2023/06/14/building-gui-with-cpp</id><content type="html" xml:base="http://localhost:4000/tools/2023/06/14/building-gui-with-cpp.html"><![CDATA[<h1 id="introduction">Introduction</h1>
+<p>When I got my first tech gig working as an IT Specialist for a small business,
+I needed to create a way for me to save my hours worked when I was working from home.
+After spending a few days researching different GUI libraries in C++, I couldn’t
+find one that was quick and easy to use. Then it finally hit me, while I was
+looking into how I could build a more private version of Discord. Why not tie
+HTML/CSS, javascript, and CSS together using a restAPI. This would allow me 
+to create an app that could be ported over to any device. Although this isn’t 
+a new discovery, I thought it would be pretty cool to write about.</p>
+
+<h1 id="creating-the-api">Creating the API</h1>
+<p>To do this, all we have to do is use <a href="https://github.com/Corvusoft/restbed">restbed</a>,
+a C++ RESTful library. With restful we can create a bridge between our web server and C++.
+When someone wants to view a webpage, we can return the HTML for that page, and when someone wants to
+call an API command, we can handle that request accordingly.</p>
+<h2 id="crude-example">Crude Example</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;fstream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;restbed&gt;</span><span class="cp">
+</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">file_to_string</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">path</span><span class="p">){</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">fstream</span> <span class="n">file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ios_base</span><span class="o">::</span><span class="n">in</span><span class="p">);</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span>
+	<span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">file</span><span class="p">.</span><span class="n">rdbuf</span><span class="p">();</span>
+	<span class="k">return</span> <span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">time_clock_page_handler</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">restbed</span><span class="o">::</span><span class="n">Session</span><span class="o">&gt;</span> <span class="n">session</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">page</span> <span class="o">=</span> <span class="n">file_to_string</span><span class="p">(</span><span class="s">"html/TimeClock.html"</span><span class="p">);</span>
+	<span class="n">session</span><span class="o">-&gt;</span><span class="n">close</span><span class="p">(</span><span class="n">restbed</span><span class="o">::</span><span class="n">OK</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="cm">/* Ommited because jekyll doesn't like to parse the header */</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+	<span class="k">auto</span> <span class="n">TimeClock</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">restbed</span><span class="o">::</span><span class="n">Resource</span><span class="o">&gt;</span><span class="p">();</span>
+	<span class="n">TimeClock</span><span class="o">-&gt;</span><span class="n">set_path</span><span class="p">(</span><span class="s">"/"</span><span class="p">);</span>
+	<span class="n">TimeClock</span><span class="o">-&gt;</span><span class="n">set_method_handler</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="n">time_clock_page_handler</span><span class="p">);</span>
+
+	<span class="k">auto</span> <span class="n">settings</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">restbed</span><span class="o">::</span><span class="n">Settings</span><span class="o">&gt;</span><span class="p">();</span>
+	<span class="n">settings</span><span class="o">-&gt;</span><span class="n">set_port</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
+
+	<span class="n">restbed</span><span class="o">::</span><span class="n">Service</span> <span class="n">service</span><span class="p">;</span>
+	<span class="n">service</span><span class="p">.</span><span class="n">publish</span><span class="p">(</span><span class="n">TimeClock</span><span class="p">);</span>
+	<span class="n">service</span><span class="p">.</span><span class="n">start</span><span class="p">(</span><span class="n">settings</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="creating-an-application">Creating an application</h1>
+<p>Once the Web app has been created, all we have to do is create a web view application
+for the platforms we which to support.</p>
+
+<h1 id="why-do-this">Why do this?</h1>
+<p>When creating an application for multiple platforms it’s always difficult, and time-consuming
+to write code for every platform. It also becomes cumbersome to make any change to the GUI, 
+as you end up having to debug and rewrite the GUI for different platforms. With this method though,
+we can make quick changes to our webpage, and, with a responsive design, the changes
+are made to all platforms.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>Building a responsive webpage is much more simple to do, compared to creating a native
+gui with C++. By utilizing restbed, you can create links between a webpage and C++. Allowing
+for a more responsive, better-looking, and functional application with cross-platform support.</p>]]></content><author><name>Benajah</name></author><category term="tools" /><category term="c++" /><category term="rest" /><category term="html" /><category term="css" /><category term="js" /><summary type="html"><![CDATA[Introduction When I got my first tech gig working as an IT Specialist for a small business, I needed to create a way for me to save my hours worked when I was working from home. After spending a few days researching different GUI libraries in C++, I couldn’t find one that was quick and easy to use. Then it finally hit me, while I was looking into how I could build a more private version of Discord. Why not tie HTML/CSS, javascript, and CSS together using a restAPI. This would allow me to create an app that could be ported over to any device. Although this isn’t a new discovery, I thought it would be pretty cool to write about.]]></summary></entry><entry><title type="html">What is Cross Site Scripting(XSS)</title><link href="http://localhost:4000/2023/06/07/xss.html" rel="alternate" type="text/html" title="What is Cross Site Scripting(XSS)" /><published>2023-06-07T23:05:00-05:00</published><updated>2023-06-07T23:05:00-05:00</updated><id>http://localhost:4000/2023/06/07/xss</id><content type="html" xml:base="http://localhost:4000/2023/06/07/xss.html"><![CDATA[<script>alert("This is just an example of XSS");</script>
+
+<h1 id="introduction">Introduction</h1>
+<p>When you clicked onto this post, you probably saw an allert appear on your screen reading “This is just
+an example of XSS”. As said in the alert, this alert was an example of Cross Site Scripting(XSS).</p>]]></content><author><name>Benajah</name></author><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">An Intro to Cybersecurtiy</title><link href="http://localhost:4000/cybersecurity/2023/05/18/an-intro-to-cybersecurity.html" rel="alternate" type="text/html" title="An Intro to Cybersecurtiy" /><published>2023-05-18T22:35:00-05:00</published><updated>2023-05-18T22:35:00-05:00</updated><id>http://localhost:4000/cybersecurity/2023/05/18/an-intro-to-cybersecurity</id><content type="html" xml:base="http://localhost:4000/cybersecurity/2023/05/18/an-intro-to-cybersecurity.html"><![CDATA[<h1 id="what-is-cybersecurity">What is Cybersecurity</h1>
+<p>When people think of cybersecurity, they think of defending against a hacker who utilizes the internet to break into systems. This is just part of cybersecurity,
+as cybersecurity not only includes the digital aspects of defending against an intrusion but also the physical aspects of defending infrastructure. With this knowledge, we
+can create a more well-rounded definition of cybersecurity. Cybersecurity is the defense against any unwanted interaction with IT infrastructure, including but not limited to
+digital and physical interactions. The reason I state that cybersecurity is not limited to the physical and digital realms is that there are many different ways a hacker
+can interact with IT infrastructure, such as manipulating another human being into allowing a hacker to gain access to a system. If you still don’t get it yet. Cybersecurity
+includes defending against any possible interactions that could lead to unauthorized access to IT.</p>
+
+<h1 id="the-goal-of-this-series">The Goal of this series</h1>
+<p>My goal in this series of Cybersecurity articles is to delve deep into as many aspects of cybersecurity, to inform everyone, myself included, about many different concepts 
+of cybersecurity. This will be, hopefully, a never-ending series of educational content in the sphere of cybersecurity.</p>
+
+<h1 id="what-are-some-ways-that-you-can-stay-informed">What are some ways that you can stay informed</h1>
+<ul>
+  <li><strong>Learn about computer science</strong>: This is a very important part of being able to understand how and where threats can be.</li>
+  <li><strong>Take cybersecurity courses</strong>: While you may not wish to become certified in the field of cybersecurity, it is always great to take online courses on cybersecurity to 
+learn how to prevent a breach of your security. There are many free courses available online for you to learn, <a href="https://www.hacksplaining.com/lessons">hacksplaining</a> is a 
+terrific example of a free way to learn about cybersecurity.</li>
+  <li><strong>Read CVE databases</strong>: Common vulnerability and exposure databases are a terrific way to learn about different vulnerabilities that have been found.</li>
+</ul>
+
+<p>In short, if you wish to stay informed on cybersecurity, utilize the internet to inform yourself about technology, the internet has so much to offer in education. All you have to do is take 
+the time to inform yourself, instead of death-scrolling social media platforms.</p>]]></content><author><name>Benajah</name></author><category term="cybersecurity" /><summary type="html"><![CDATA[What is Cybersecurity When people think of cybersecurity, they think of defending against a hacker who utilizes the internet to break into systems. This is just part of cybersecurity, as cybersecurity not only includes the digital aspects of defending against an intrusion but also the physical aspects of defending infrastructure. With this knowledge, we can create a more well-rounded definition of cybersecurity. Cybersecurity is the defense against any unwanted interaction with IT infrastructure, including but not limited to digital and physical interactions. The reason I state that cybersecurity is not limited to the physical and digital realms is that there are many different ways a hacker can interact with IT infrastructure, such as manipulating another human being into allowing a hacker to gain access to a system. If you still don’t get it yet. Cybersecurity includes defending against any possible interactions that could lead to unauthorized access to IT.]]></summary></entry><entry><title type="html">What is Cppship, and why do I use it?</title><link href="http://localhost:4000/tools/2023/05/18/what-is-cppship.html" rel="alternate" type="text/html" title="What is Cppship, and why do I use it?" /><published>2023-05-18T00:45:00-05:00</published><updated>2023-05-18T00:45:00-05:00</updated><id>http://localhost:4000/tools/2023/05/18/what-is-cppship</id><content type="html" xml:base="http://localhost:4000/tools/2023/05/18/what-is-cppship.html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>As a computer programmer, I like to spend most of my time writing and developing code. The big issue I run into with C++ though, is having to spend lots of time learning how
+to use cmake and properly utilize its syntax. Until one day I came across <a href="https://github.com/qqiangwu/cppship">Cppship</a> while scrolling through GitHub. After a quick read of its 
+documentation, I installed it and have been using it for my C++ projects ever since.</p>
+
+<h2 id="cppship">Cppship</h2>
+<p>According to <a href="https://github.com/qqiangwu">qqiangwu</a>, the creator of cppship, cppship is a “Cargo-like build tool for modern cpp”. If you aren’t familiar with Cargo, 
+it’s a package manager that comes with the Rust programming language. Cargo manages your packages and builds your code. Just like Cargo, Cppship manages your packages and builds your C++ code.
+This allows developers to spend less time configuring their compiler and packages, and spend that time developing their projects.</p>
+
+<p>Currently, Cppship is supported on Linux and MacOS, and Windows support is still being implemented</p>
+
+<h2 id="why-use-cppship">Why use Cppship</h2>
+<p>While I could give you reasons for why you should use it in my own words, I think reading the PR itself does a better job <a href="https://github.com/qqiangwu/cppship">here</a>.</p>
+
+<h2 id="so-why-do-i-use-cppship">So why do I use Cppship</h2>
+<p>Even though Cppship isn’t widely used yet, I still find having a Cargo-like build tool for C++ useful. I also enjoy how Cppship allows for easily including other cppship projects 
+through the use of GitHub. With Cppship, all you have to do is upload your cppship project to a PR, then when you wish to include it in another project you can include that 
+PR in your cppship.toml file.</p>
+
+<p>Example:</p>
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[package]</span>
+<span class="py">name</span> <span class="p">=</span> <span class="s">"test"</span>
+<span class="py">version</span> <span class="p">=</span> <span class="s">"0.0.1"</span>
+<span class="py">authors</span> <span class="p">=</span> <span class="p">[]</span>
+<span class="py">std</span> <span class="p">=</span> <span class="mi">17</span>
+<span class="nn">[depencies]</span>
+<span class="c">#include apexcore(a cppship project) through its PR</span>
+<span class="nn">apexcore</span> <span class="o">=</span> <span class="p">{</span><span class="py">git</span> <span class="p">=</span> <span class="s">"https://github.com/Bjathneas/ApexCore.git"</span><span class="p">,</span> <span class="py">commit</span> <span class="p">=</span> <span class="s">"8732e53"</span><span class="p">}</span>
+</code></pre></div></div>
+<h1 id="conclusion">Conclusion</h1>
+<p>Cppship is Cargo but for C++, and allows a C++ dev to easily create a new project, build, run, test, bench, format, and lint it. I use Cppship its simple, easy to use, and
+allows me to spend more time writing my C++ projects, instead of slamming my head into my desk because Cmake chose not to like me.</p>]]></content><author><name>Benajah</name></author><category term="tools" /><category term="c++" /><category term="cargo" /><summary type="html"><![CDATA[Introduction As a computer programmer, I like to spend most of my time writing and developing code. The big issue I run into with C++ though, is having to spend lots of time learning how to use cmake and properly utilize its syntax. Until one day I came across Cppship while scrolling through GitHub. After a quick read of its documentation, I installed it and have been using it for my C++ projects ever since.]]></summary></entry><entry><title type="html">Check out EnCore</title><link href="http://localhost:4000/projects/2023/05/18/check-out-encore.html" rel="alternate" type="text/html" title="Check out EnCore" /><published>2023-05-18T00:41:00-05:00</published><updated>2023-05-18T00:41:00-05:00</updated><id>http://localhost:4000/projects/2023/05/18/check-out-encore</id><content type="html" xml:base="http://localhost:4000/projects/2023/05/18/check-out-encore.html"><![CDATA[<p><a href="https://github.com/Bjathneas/EnCore">EnCore</a> is an ECS(Entity-Component-System) library that is simple and lightweight</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Add <code class="language-plaintext highlighter-rouge">EnCore.h</code> to your project</p>
+
+<h2 id="usageexamples">Usage/Examples</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Include Encore</span>
+<span class="c1">//Include Encore</span>
+<span class="cp">#include</span> <span class="cpf">"EnCore.h"</span><span class="cp">
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span>
+<span class="c1">//Create components</span>
+<span class="k">struct</span> <span class="nc">PosComp</span> <span class="o">:</span> <span class="n">EnCore</span><span class="o">::</span><span class="n">Component</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+    <span class="n">PosComp</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nc">VelComp</span> <span class="o">:</span> <span class="n">EnCore</span><span class="o">::</span><span class="n">Component</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+    <span class="n">VelComp</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span> <span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="c1">//Create system</span>
+<span class="k">class</span> <span class="nc">UpdateSystem</span> <span class="o">:</span> <span class="k">public</span> <span class="n">EnCore</span><span class="o">::</span><span class="n">System</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">UpdateSystem</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">EnCore</span><span class="o">::</span><span class="n">Manager</span><span class="o">&gt;</span> <span class="n">manager</span><span class="p">)</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="c1">//Get entites with VelComp</span>
+        <span class="k">auto</span> <span class="n">entities</span> <span class="o">=</span> <span class="n">manager</span><span class="o">-&gt;</span><span class="n">get_entities_with_components</span><span class="o">&lt;</span><span class="n">VelComp</span><span class="o">&gt;</span><span class="p">();</span>
+        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">entity</span> <span class="o">:</span> <span class="n">entities</span><span class="p">){</span>
+            <span class="c1">//Check that entity has a PosComp</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">entity</span><span class="o">-&gt;</span><span class="n">contains</span><span class="o">&lt;</span><span class="n">PosComp</span><span class="o">&gt;</span><span class="p">()){</span>
+                <span class="c1">//Get components</span>
+                <span class="k">auto</span> <span class="n">pos_comp</span> <span class="o">=</span> <span class="n">entity</span><span class="o">-&gt;</span><span class="n">get_component</span><span class="o">&lt;</span><span class="n">PosComp</span><span class="o">&gt;</span><span class="p">();</span>
+                <span class="k">auto</span> <span class="n">vel_comp</span> <span class="o">=</span> <span class="n">entity</span><span class="o">-&gt;</span><span class="n">get_component</span><span class="o">&lt;</span><span class="n">VelComp</span><span class="o">&gt;</span><span class="p">();</span>
+                <span class="c1">//Update values</span>
+                <span class="n">pos_comp</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">+=</span> <span class="n">vel_comp</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span>
+                <span class="n">pos_comp</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">+=</span> <span class="n">vel_comp</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">;</span>
+                
+                <span class="c1">//print out the new position</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"x: "</span> <span class="o">&lt;&lt;</span> <span class="n">pos_comp</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">" y: "</span> <span class="o">&lt;&lt;</span> <span class="n">pos_comp</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//Create the ECS manager</span>
+    <span class="k">auto</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">EnCore</span><span class="o">::</span><span class="n">Manager</span><span class="o">&gt;</span><span class="p">();</span>
+
+    <span class="c1">//Create and store entity</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">entity_uid</span> <span class="o">=</span> <span class="n">manager</span><span class="o">-&gt;</span><span class="n">create_entity</span><span class="p">();</span>
+    <span class="c1">//Make components</span>
+    <span class="k">auto</span> <span class="n">pos_comp</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">PosComp</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span><span class="c1">// x=10 y=10</span>
+    <span class="k">auto</span> <span class="n">vel_comp</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">VelComp</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">3.14</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">);</span><span class="c1">// vel_x = 3.14, vel_y = 3.13</span>
+    <span class="c1">//Get entity and add compnents</span>
+    <span class="k">auto</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">manager</span><span class="o">-&gt;</span><span class="n">get_entity</span><span class="p">(</span><span class="n">entity_uid</span><span class="p">);</span>
+    <span class="n">entity</span><span class="o">-&gt;</span><span class="n">add_component</span><span class="p">(</span><span class="n">pos_comp</span><span class="p">);</span>
+    <span class="n">entity</span><span class="o">-&gt;</span><span class="n">add_component</span><span class="p">(</span><span class="n">vel_comp</span><span class="p">);</span>
+
+    <span class="c1">//Create System</span>
+    <span class="k">auto</span> <span class="n">system</span> <span class="o">=</span> <span class="n">UpdateSystem</span><span class="p">();</span>
+
+    <span class="c1">// Update Loop</span>
+    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">system</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">manager</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>]]></content><author><name>Benajah</name></author><category term="projects" /><category term="c++" /><category term="ecs" /><summary type="html"><![CDATA[EnCore is an ECS(Entity-Component-System) library that is simple and lightweight]]></summary></entry></feed>
